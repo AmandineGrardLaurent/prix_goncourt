@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from typing import Optional
 
 from goncourt.models.person import Person
 
 
 @dataclass
 class Author(Person):
+    id_author: Optional[int] = field(default=None, init=False)
     biography: str
 
     def __str__(self):
