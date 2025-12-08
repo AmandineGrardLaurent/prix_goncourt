@@ -1,0 +1,35 @@
+@startuml
+
+left to right direction
+
+rectangle "acteurs" {
+    actor utilisateur as US
+    actor membre_jury as MJ
+    actor president as PR
+}
+    
+
+package System {
+    usecase "Se connecter" as CONNECTE
+    usecase "Afficher des livres\nd'une sélection" as AFFICHE_LIVRE
+    usecase "Voter pour un livre" as VOTE
+    usecase "Gérer les votes" as GERE_VOTE
+    usecase "Afficher les livres\n de chaque sélection" as AFFICHE_SELECTION
+    usecase "Afficher le nombre\nde votes du finaliste" as AFFICHE_VOTE
+}
+
+US --> AFFICHE_LIVRE
+MJ --> CONNECTE
+MJ --> VOTE
+PR --> GERE_VOTE
+
+US <|-- MJ
+MJ <|-- PR
+
+VOTE --> CONNECTE : <<include>>
+GERE_VOTE --> CONNECTE : <<include>>
+
+GERE_VOTE <|-- AFFICHE_SELECTION : <<extend>>
+GERE_VOTE <|-- AFFICHE_VOTE : <<extend>>
+
+@enduml
