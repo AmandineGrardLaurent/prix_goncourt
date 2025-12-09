@@ -15,6 +15,7 @@ def main():
     display_list(goncourt.get_all_authors())
 
     print(goncourt.get_book_by_id(2))
+    display_list(goncourt.get_all_books())
 
 
 if __name__ == '__main__':

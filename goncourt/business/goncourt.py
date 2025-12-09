@@ -23,3 +23,8 @@ class Goncourt:
     def get_book_by_id(id_book: int) -> Optional[Book]:
         book_dao: BookDao = BookDao()
         return book_dao.read(id_book)
+
+    @staticmethod
+    def get_all_books() -> list[Book]:
+        book_dao: BookDao = BookDao()
+        return book_dao.read_all()
