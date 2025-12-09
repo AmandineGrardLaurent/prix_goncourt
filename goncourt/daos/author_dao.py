@@ -14,7 +14,6 @@ class AuthorDao(Dao[Author]):
     def read(self, id_author: int) -> Optional[Author]:
 
         author: Optional[Author]
-
         with Dao.connection.cursor(pymysql.cursors.DictCursor) as cursor:
             sql = """\
                        SELECT p.last_name, p.first_name, a.biography, a.id_author
@@ -36,4 +35,26 @@ class AuthorDao(Dao[Author]):
         return author
 
     def read_all(self) -> list[Author]:
-        return []
+
+        authors: list[Author] = []
+        with Dao.connection.cursor(pymysql.cursors.DictCursor) as cursor:
+            sql = """\
+                        SELECT p.last_name, p.first_name, a.biography, a.id_author
+                        FROM person AS p
+                        JOIN author AS a
+                        ON p.id_person=a.id_person
+                      """
+            cursor.execute(sql)
+            records = cursor.fetchall()
+
+            if not records:
+                return []
+            else:
+                for record in records:
+                    author = Author(record['last_name'],
+                                    record['first_name'],
+                                    record['biography'])
+                    author.id_author = record['id_author']
+                    authors.append(author)
+
+                return authors
