@@ -1,12 +1,11 @@
 @startuml
 
 left to right direction
+skin rose
 
-rectangle "acteurs" {
-    actor utilisateur as US
-    actor membre_jury as MJ
-    actor president as PR
-}
+actor utilisateur as US
+actor membre_jury as MJ
+actor president as PR
     
 
 package System {
@@ -26,10 +25,9 @@ PR --> GERE_VOTE
 US <|-- MJ
 MJ <|-- PR
 
-VOTE --> CONNECTE : <<include>>
-GERE_VOTE --> CONNECTE : <<include>>
-
-GERE_VOTE <|-- AFFICHE_SELECTION : <<extend>>
-GERE_VOTE <|-- AFFICHE_VOTE : <<extend>>
+VOTE ..> CONNECTE : <<include>>
+GERE_VOTE ..> CONNECTE : <<include>>
+GERE_VOTE <|.. AFFICHE_SELECTION : <<extend>>
+GERE_VOTE <|.. AFFICHE_VOTE : <<extend>>
 
 @enduml

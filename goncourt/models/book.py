@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 from datetime import date
 from typing import Optional
 
+from goncourt.models.editor import Editor
 from goncourt.models.mainCharacter import MainCharacter
 
 
@@ -16,6 +17,7 @@ class Book:
     pages_nb: int
     ISBN: str
     price: decimal.Decimal
+    editor: Editor
     main_character: list[MainCharacter] = field(default_factory=list)
 
     def __str__(self):
@@ -23,10 +25,9 @@ class Book:
         return (f"Informations du livre {self.title} :\n"
                 f"- Titre : {self.title}"
                 f"- Résumé : {self.description}"
+                f"- Personnage(s) principal(aux) : {characters}"
                 f"- Date de publication : {self.publication_date}"
                 f"- Nombre de pages : {self.pages_nb}"
                 f"- ISBN : {self.ISBN}"
                 f"- Prix : {self.price}"
-                f"- Personnages principaux : {characters}")
-
-
+                f"- Editor: {self.editor.name}")
