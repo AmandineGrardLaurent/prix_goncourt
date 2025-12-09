@@ -5,43 +5,74 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Optional
 
+import pymysql
+
 from goncourt.daos.dao import Dao
 from goncourt.models.author import Author
 from goncourt.models.book import Book
+from goncourt.models.editor import Editor
+from goncourt.models.mainCharacter import MainCharacter
 
 
 @dataclass
 class BookDao(Dao[Book]):
 
-    @staticmethod
-    def init_book_db(record):
-        book: Book = Book(record['title'], record['description'], record['publication_date', record['pages_nb'], record['ISBN'], record['price'])
-        book.author: Author = Author(record['last_name'], record['first_name'])
-
-
     def read(self, id_book: int) -> Optional[Book]:
-
-        book: Optional[Book]
-
-        with Dao.connection.cursor() as cursor:
-            sql = """\
-                SELECT b.title, b.description, b.publication_date, b.pages_nb, b.ISBN, b.price, m.name, e.name, a.biography, p.last_name, p.first_name 
+        with Dao.connection.cursor(pymysql.cursors.DictCursor) as cursor:
+            sql = """
+                SELECT 
+                    b.id_book, b.title, b.description, b.publication_date,
+                    b.pages_nb, b.ISBN, b.price,
+                    m.name AS character_name,
+                    e.name AS editor_name,
+                    a.biography,
+                    p.last_name, p.first_name
                 FROM book AS b
-                RIGHT JOIN main_character AS m
-                ON m.id_book=b.id_book
-                JOIN editor AS e
-                ON b.id_editor=e.id_editor
-                JOIN author AS a
-                ON a.id_author=b.id_author
-                JOIN person AS p
-                ON p.id_person=a.id_person
-                WHERE b.id_book= %s
-        """
+                JOIN main_character AS m 
+                    ON m.id_book = b.id_book
+                JOIN editor AS e 
+                    ON b.id_editor = e.id_editor
+                JOIN author AS a 
+                    ON a.id_author = b.id_author
+                JOIN person AS p 
+                    ON p.id_person = a.id_person
+                WHERE b.id_book = %s
+            """
             cursor.execute(sql, (id_book,))
-            record = cursor.fetchone()
-        if record is not None:
-            book = self.teacher_from_db(record)
-        else:
-            book = None
+            records = cursor.fetchall()
 
+        if not records:
+            return None
+
+        record = records[0]
+        print(records[0])
+
+        author = Author(
+            biography=record['biography'],
+            first_name=record['first_name'],
+            last_name=record['last_name']
+        )
+
+        editor = Editor(
+            name=record['editor_name']
+        )
+
+        main_characters = [MainCharacter(row['character_name']) for row in records]
+
+        book = Book(
+            title=record['title'],
+            description=record['description'],
+            publication_date=record['publication_date'],
+            pages_nb=record['pages_nb'],
+            ISBN=record['ISBN'],
+            price=record['price'],
+            editor=editor,
+            author=author,
+            main_character=main_characters
+        )
+        book.id_book = record['id_book']
         return book
+
+    def read_all(self) -> list[Book]:
+        return []
+

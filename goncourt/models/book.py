@@ -26,11 +26,11 @@ class Book:
     def __str__(self):
         characters = ", ".join([character.name for character in self.main_character])
         return (f"Informations du livre {self.title} :\n"
-                f"- Titre : {self.title}"
-                f"- Résumé : {self.description}"
-                f"- Personnage(s) principal(aux) : {characters}"
-                f"- Date de publication : {self.publication_date}"
-                f"- Nombre de pages : {self.pages_nb}"
-                f"- ISBN : {self.ISBN}"
-                f"- Prix : {self.price}"
-                f"- Editor: {self.editor.name}")
+                f"- Titre : {self.title} \n"
+                f"- Résumé : {self.description} \n"
+                f"- Personnage(s) principal(aux) : {characters} \n"
+                f"- Date de publication : {self.publication_date} \n"
+                f"- Nombre de pages : {self.pages_nb} \n"
+                f"- ISBN : {self.ISBN} \n"
+                f"- Prix : {self.price} euros \n"
+                f"- Editeur: {self.editor.name} \n")
