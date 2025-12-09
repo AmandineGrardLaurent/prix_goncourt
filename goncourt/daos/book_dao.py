@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import decimal
 from dataclasses import dataclass, field
-from datetime import datetime
 from typing import Optional
 
 import pymysql
@@ -72,7 +70,7 @@ class BookDao(Dao[Book]):
         book.id_book = record['id_book']
         return book
 
-    def read_all(self) -> list[Book]:
+    def read_selection(self, selection_nb: int) -> list[Book]:
         books: list[Book] = []
 
         with Dao.connection.cursor(pymysql.cursors.DictCursor) as cursor:
@@ -83,7 +81,8 @@ class BookDao(Dao[Book]):
                     b.pages_nb, b.ISBN, b.price,
                     e.name AS editor_name,
                     a.biography,
-                    p.last_name, p.first_name
+                    p.last_name, p.first_name,
+                    bs.id_selection
                 FROM book AS b
                 JOIN editor AS e 
                     ON b.id_editor = e.id_editor
@@ -91,9 +90,12 @@ class BookDao(Dao[Book]):
                     ON a.id_author = b.id_author
                 JOIN person AS p 
                     ON p.id_person = a.id_person
+                JOIN book_selection AS bs
+                    ON bs.id_book=b.id_book
+                WHERE id_selection = %s
                 ORDER BY b.id_book
             """
-            cursor.execute(sql_books)
+            cursor.execute(sql_books, [selection_nb,])
             book_rows = cursor.fetchall()
 
             if not book_rows:

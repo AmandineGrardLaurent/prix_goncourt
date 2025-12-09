@@ -14,8 +14,8 @@ def main():
     print(goncourt.get_author_by_id(1))
     display_list(goncourt.get_all_authors())
 
-    print(goncourt.get_book_by_id(2))
-    display_list(goncourt.get_all_books())
+    print(goncourt.get_book_by_id(1))
+    display_list(goncourt.get_books_selection(3))
 
 
 if __name__ == '__main__':

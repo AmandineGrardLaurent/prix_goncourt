@@ -25,7 +25,3 @@ class Dao[T](ABC):
            (ou None s'il n'a pu être trouvé)"""
         ...
 
-    @abstractmethod
-    def read_all(self) -> list[T]:
-        """Renvoit l'ensemble des entités de la BD correspondant à la classe de modèle T."""
-        ...
