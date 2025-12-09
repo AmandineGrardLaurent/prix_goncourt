@@ -1,0 +1,46 @@
+@startuml
+abstract class Person {
+    - string first_name
+    - string last_name
+}
+
+class Author {
+    - string biography
+}
+
+class AcademyMember {
+    - boolean is_president
+}
+
+class MainCharacter {
+    - string name
+}
+
+class Editor {
+    - string name
+}
+
+class Selection {
+    - date date
+    - int selection_nb
+}
+
+class Book {
+    - string title
+    - string description
+    - date publication_date
+    - int pages_nb
+    - int ISBN
+    - decimal price
+}
+
+Person <|-- Author
+Person <|-- AcademyMember
+
+Author "1" --> "1..*" Book
+Book "0..*" <--> "1..*" Selection
+Book "1" *-- "1..*" MainCharacter
+Editor "1" --> "1..*" Book 
+
+
+@enduml
