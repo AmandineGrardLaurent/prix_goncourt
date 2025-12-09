@@ -12,6 +12,8 @@ def main():
     goncourt: Goncourt = Goncourt()
 
     identity: str = input("Entrez votre nom : ")
+    print(goncourt.get_academy_member_by_id(1).is_president)
+    display_list(goncourt.get_all_academy_members())
 
     print(goncourt.get_author_by_id(1))
     display_list(goncourt.get_all_authors())
