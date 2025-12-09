@@ -3,28 +3,32 @@ from typing import Optional
 
 from goncourt.daos.author_dao import AuthorDao
 from goncourt.daos.book_dao import BookDao
+from goncourt.daos.selection_dao import SelectionDao
 from goncourt.models.author import Author
 from goncourt.models.book import Book
 
 
 class Goncourt:
+    author_dao: AuthorDao = AuthorDao()
+    book_dao: BookDao = BookDao()
+    selection_dao: SelectionDao = SelectionDao()
 
     @staticmethod
     def get_author_by_id(id_author: int) -> Optional[Author]:
-        author_dao: AuthorDao = AuthorDao()
-        return author_dao.read(id_author)
+        return Goncourt.author_dao.read(id_author)
 
     @staticmethod
     def get_all_authors() -> list[Author]:
-        author_dao: AuthorDao = AuthorDao()
-        return author_dao.read_all()
+        return Goncourt.author_dao.read_all()
 
     @staticmethod
     def get_book_by_id(id_book: int) -> Optional[Book]:
-        book_dao: BookDao = BookDao()
-        return book_dao.read(id_book)
+        return Goncourt.book_dao.read(id_book)
 
     @staticmethod
     def get_books_selection(selection_nb: int) -> list[Book]:
-        book_dao: BookDao = BookDao()
-        return book_dao.read_selection(selection_nb)
+        return Goncourt.selection_dao.read_selection(selection_nb)
+
+    @staticmethod
+    def set_books_selection(id_books: list[int], id_selection: int) -> bool:
+        return Goncourt.selection_dao.add_books_to_selection(id_books, id_selection)

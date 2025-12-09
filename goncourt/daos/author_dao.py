@@ -25,9 +25,9 @@ class AuthorDao(Dao[Author]):
             cursor.execute(sql, (id_author,))
             record = cursor.fetchone()
         if record is not None:
-            author = Author(record['last_name'],
-                            record['first_name'],
-                            record['biography'])
+            author = Author(last_name=record['last_name'],
+                            first_name=record['first_name'],
+                            biography=record['biography'])
             author.id_author = record['id_author']
         else:
             author = None
@@ -51,9 +51,9 @@ class AuthorDao(Dao[Author]):
                 return []
             else:
                 for record in records:
-                    author = Author(record['last_name'],
-                                    record['first_name'],
-                                    record['biography'])
+                    author = Author(last_name=record['last_name'],
+                                    first_name=record['first_name'],
+                                    biography=record['biography'])
                     author.id_author = record['id_author']
                     authors.append(author)
 
