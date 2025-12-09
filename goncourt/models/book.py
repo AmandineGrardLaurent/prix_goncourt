@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
+import datetime
 import decimal
 from dataclasses import dataclass, field
-from datetime import date
+from datetime import datetime
 from typing import Optional
 
+from goncourt.models.author import Author
 from goncourt.models.editor import Editor
 from goncourt.models.mainCharacter import MainCharacter
 
@@ -13,11 +15,12 @@ class Book:
     id_book: Optional[int] = field(default=None, init=False)
     title: str
     description: str
-    publication_date: date
+    publication_date: datetime
     pages_nb: int
     ISBN: str
     price: decimal.Decimal
     editor: Editor
+    author: Author
     main_character: list[MainCharacter] = field(default_factory=list)
 
     def __str__(self):

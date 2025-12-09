@@ -11,7 +11,7 @@ class AcademyMember:
 
     @override
     def __str__(self):
-        result = f"Status de {super.__str__()} : "
+        result = f"Status de {super().__str__()} : "
         if self.is_president:
             result += "Président"
         else:

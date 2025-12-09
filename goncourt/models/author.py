@@ -12,5 +12,5 @@ class Author(Person):
 
     @override
     def __str__(self):
-        return (f"Biographie de {super.__str__()} : "
+        return (f"Biographie de {super().__str__()} : "
                 f"{self.biography}")
