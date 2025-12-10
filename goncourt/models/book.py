@@ -33,4 +33,6 @@ class Book:
                 f"- Nombre de pages : {self.pages_nb} \n"
                 f"- ISBN : {self.ISBN} \n"
                 f"- Prix : {self.price} euros \n"
-                f"- Editeur: {self.editor.name} \n")
+                f"- Editeur: {self.editor.name} \n"
+                f"- Auteur: {self.author.first_name} {self.author.last_name}")
+

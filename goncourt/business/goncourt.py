@@ -16,14 +16,9 @@ class Goncourt:
     selection_dao: SelectionDao = SelectionDao()
     academy_member_dao: AcademyMemberDao = AcademyMemberDao()
 
-    def __init__(self):
-        self.votes_selection_3: dict[int, int] = {}
-
-    def set_votes_selection_3(self, votes: dict[int, int]):
-        self.votes_selection_3 = votes
-
-    def get_votes_selection_3(self):
-        return self.votes_selection_3
+    @staticmethod
+    def get_votes_selection(selection_nb: int) -> dict[str, int]:
+        return Goncourt.selection_dao.read_votes_selection(selection_nb)
 
     @staticmethod
     def get_author_by_id(id_author: int) -> Optional[Author]:

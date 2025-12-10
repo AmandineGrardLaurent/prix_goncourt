@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from dataclasses import dataclass
-from typing import Optional
 
 import pymysql
 
@@ -16,9 +15,6 @@ from goncourt.models.selection import Selection
 
 @dataclass
 class SelectionDao(Dao[Selection]):
-
-    def read(self):
-        return 0
 
     def read_selection(self, selection_nb: int) -> list[Book]:
         books: list[Book] = []
@@ -94,7 +90,7 @@ class SelectionDao(Dao[Selection]):
     def add_books_to_selection(self, id_books: list[int], id_selection: int) -> bool:
         try:
             with Dao.connection.cursor() as cursor:
-                sql = "INSERT INTO book_selection (id_book, id_selection) VALUES (%s, %s)"
+                sql = "INSERT INTO book_selection (id_book, id_selection, vote) VALUES (%s, %s, 0)"
                 for id_book in id_books:
                     cursor.execute(sql, (id_book, id_selection))
             Dao.connection.commit()
@@ -102,3 +98,37 @@ class SelectionDao(Dao[Selection]):
         except Exception as e:
             print("Erreur:", e)
             return False
+
+    def read_votes_selection(self, selection_nb: int) -> dict[str, int] :
+        votes_selection: dict[str, int] = {}
+
+        with Dao.connection.cursor(pymysql.cursors.DictCursor) as cursor:
+            sql = """
+                SELECT 
+                    b.title,
+                    bs.vote
+                FROM book_selection AS bs
+                JOIN book AS b
+                    ON b.id_book = bs.id_book
+                WHERE bs.id_selection = %s
+            """
+            cursor.execute(sql, (selection_nb,))
+            records = cursor.fetchall()
+
+        for record in records:
+            votes_selection[record["title"]] = record["vote"]
+
+        return votes_selection
+
+    def update_vote_selection(self, id_selection: int, votes: dict[int, int]) -> bool:
+        with Dao.connection.cursor() as cursor:
+            sql = """
+                UPDATE book_selection
+                SET vote = %s
+                WHERE id_book = %s AND id_selection = %s
+            """
+            for id_book, new_vote in votes.items():
+                cursor.execute(sql, (new_vote, id_book, id_selection))
+
+        Dao.connection.commit()
+        return True

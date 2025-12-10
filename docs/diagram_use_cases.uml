@@ -3,22 +3,24 @@
 left to right direction
 skin rose
 
+
 actor utilisateur as US
 actor membre_jury as MJ
 actor president as PR
+
     
 
 package System {
     usecase "Se connecter" as CONNECTE
-    usecase "Afficher des livres\nd'une sélection" as AFFICHE_LIVRE
+    usecase "Afficher une sélection" as AFFICHE_SELECTION
+    usecase "Afficher les infos d'un livre" as AFFICHE_LIVRE
     usecase "Voter pour un livre" as VOTE
     usecase "Gérer les votes" as GERE_VOTE
-    usecase "Afficher les livres\n de chaque sélection" as AFFICHE_SELECTION
-    usecase "Afficher le nombre\nde votes du finaliste" as AFFICHE_VOTE
+    usecase "Ajouter les livres\n de chaque sélection" as REGISTER_SELECTION
+    usecase "Ajouter le nombre\nde votes de la\nselection 3" as REGISTER_VOTE
 }
 
-US --> AFFICHE_LIVRE
-MJ --> CONNECTE
+US --> AFFICHE_SELECTION
 MJ --> VOTE
 PR --> GERE_VOTE
 
@@ -27,7 +29,10 @@ MJ <|-- PR
 
 VOTE ..> CONNECTE : <<include>>
 GERE_VOTE ..> CONNECTE : <<include>>
-GERE_VOTE <|.. AFFICHE_SELECTION : <<extend>>
-GERE_VOTE <|.. AFFICHE_VOTE : <<extend>>
+GERE_VOTE <|.. REGISTER_SELECTION : <<include>>
+GERE_VOTE <|.. REGISTER_VOTE : <<include>>
+AFFICHE_SELECTION <|.. AFFICHE_LIVRE : <<extend>>
+VOTE ..> AFFICHE_SELECTION : <<include>>
+
 
 @enduml

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 08 déc. 2025 à 14:19
+-- Généré le : mer. 10 déc. 2025 à 14:21
 -- Version du serveur : 8.4.7
 -- Version de PHP : 8.3.28
 
@@ -142,43 +142,32 @@ CREATE TABLE IF NOT EXISTS `book_selection` (
   `id_book_selection` int NOT NULL AUTO_INCREMENT,
   `id_selection` int DEFAULT NULL,
   `id_book` int DEFAULT NULL,
+  `vote` int DEFAULT '0',
   PRIMARY KEY (`id_book_selection`),
   KEY `id_book` (`id_book`),
   KEY `id_selection` (`id_selection`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `book_selection`
 --
 
-INSERT INTO `book_selection` (`id_book_selection`, `id_selection`, `id_book`) VALUES
-(1, 1, 1),
-(2, 1, 2),
-(3, 1, 3),
-(4, 1, 4),
-(5, 1, 5),
-(6, 1, 6),
-(7, 1, 7),
-(8, 1, 8),
-(9, 1, 9),
-(10, 1, 10),
-(11, 1, 11),
-(12, 1, 12),
-(13, 1, 13),
-(14, 1, 14),
-(15, 1, 15),
-(16, 2, 1),
-(17, 2, 2),
-(18, 2, 6),
-(19, 2, 7),
-(20, 2, 8),
-(21, 2, 10),
-(22, 2, 11),
-(23, 2, 12),
-(24, 3, 1),
-(25, 3, 2),
-(26, 3, 11),
-(27, 3, 8);
+INSERT INTO `book_selection` (`id_book_selection`, `id_selection`, `id_book`, `vote`) VALUES
+(1, 1, 1, 0),
+(2, 1, 2, 0),
+(3, 1, 3, 0),
+(4, 1, 4, 0),
+(5, 1, 5, 0),
+(6, 1, 6, 0),
+(7, 1, 7, 0),
+(8, 1, 8, 0),
+(9, 1, 9, 0),
+(10, 1, 10, 0),
+(11, 1, 11, 0),
+(12, 1, 12, 0),
+(13, 1, 13, 0),
+(14, 1, 14, 0),
+(15, 1, 15, 0);
 
 -- --------------------------------------------------------
 
