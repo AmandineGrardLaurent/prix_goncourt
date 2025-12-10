@@ -60,3 +60,17 @@ class AcademyMemberDao(Dao[AcademyMember]):
                     academy_members.append(academy_member)
 
                 return academy_members
+
+    def is_president(self, lastname: str) -> bool:
+        with Dao.connection.cursor(pymysql.cursors.DictCursor) as cursor:
+            sql = """\
+                    SELECT am.is_president
+                    FROM academy_member AS am
+                    JOIN person AS p
+                        ON p.id_person=am.id_person
+                    WHERE p.last_name= %s
+               """
+            cursor.execute(sql, (lastname,))
+            record = cursor.fetchone()
+
+        return record['is_president']

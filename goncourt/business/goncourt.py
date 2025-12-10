@@ -43,3 +43,7 @@ class Goncourt:
     @staticmethod
     def get_all_academy_members() -> list[AcademyMember]:
         return Goncourt.academy_member_dao.read_all()
+
+    @staticmethod
+    def verify_is_president(lastname: str):
+        return Goncourt.academy_member_dao.is_president(lastname)
