@@ -73,4 +73,7 @@ class AcademyMemberDao(Dao[AcademyMember]):
             cursor.execute(sql, (lastname,))
             record = cursor.fetchone()
 
+        if record is None:
+            return False
+
         return record['is_president']

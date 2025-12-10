@@ -16,6 +16,15 @@ class Goncourt:
     selection_dao: SelectionDao = SelectionDao()
     academy_member_dao: AcademyMemberDao = AcademyMemberDao()
 
+    def __init__(self):
+        self.votes_selection_3: dict[int, int] = {}
+
+    def set_votes_selection_3(self, votes: dict[int, int]):
+        self.votes_selection_3 = votes
+
+    def get_votes_selection_3(self):
+        return self.votes_selection_3
+
     @staticmethod
     def get_author_by_id(id_author: int) -> Optional[Author]:
         return Goncourt.author_dao.read(id_author)
@@ -42,8 +51,13 @@ class Goncourt:
 
     @staticmethod
     def get_all_academy_members() -> list[AcademyMember]:
+        print(Goncourt.academy_member_dao.read_all())
         return Goncourt.academy_member_dao.read_all()
 
     @staticmethod
-    def verify_is_president(lastname: str):
+    def verify_is_academy_member(lastname: str) -> bool:
+        return lastname in [member.last_name for member in Goncourt.academy_member_dao.read_all()]
+
+    @staticmethod
+    def verify_is_president(lastname: str) -> bool:
         return Goncourt.academy_member_dao.is_president(lastname)
