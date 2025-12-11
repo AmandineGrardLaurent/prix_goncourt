@@ -11,7 +11,16 @@ from goncourt.models.author import Author
 
 @dataclass
 class AuthorDao(Dao[Author]):
+    """
+         Data Access Object (DAO) for interacting with author data in the database.
+        Handles CRUD operations for authors, including retrieving, creating, and updating author information.
+    """
+
     def read(self, id_author: int) -> Optional[Author]:
+        """
+            Retrieve a single author by their unique ID.
+        :return: Optional[Author]: The `Author` object if found, otherwise `None`.
+        """
 
         author: Optional[Author]
         with Dao.connection.cursor(pymysql.cursors.DictCursor) as cursor:
@@ -35,6 +44,10 @@ class AuthorDao(Dao[Author]):
         return author
 
     def read_all(self) -> list[Author]:
+        """
+            Retrieve all authors from the database.
+        :return: list[Author]: A list of all `Author` objects, or an empty list if no authors exist.
+        """
 
         authors: list[Author] = []
         with Dao.connection.cursor(pymysql.cursors.DictCursor) as cursor:
