@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
 
-"""
-Classe abstraite générique Dao[T], dont hérite les classes de DAO de chaque entité
-"""
-
 from dataclasses import dataclass
 from abc import ABC, abstractmethod
 from typing import ClassVar, Optional
@@ -12,6 +8,15 @@ import pymysql.cursors
 
 @dataclass
 class Dao[T](ABC):
+    """
+        Abstract base class for Data Access Objects (DAOs). Provides a generic interface
+        for interacting with the database and managing connections.
+
+        The DAO class establishes a connection to the database and provides the basic
+        functionality required for CRUD operations. Specific DAOs for each entity (e.g.,
+        `AuthorDao`, `BookDao`) inherit from this class and implement the necessary
+        database interaction logic.
+    """
     connection: ClassVar[pymysql.Connection] = \
         pymysql.connect(host='localhost',
                         user='prix_goncourt',

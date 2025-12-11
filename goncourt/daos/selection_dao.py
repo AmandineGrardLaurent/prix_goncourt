@@ -15,8 +15,20 @@ from goncourt.models.selection import Selection
 
 @dataclass
 class SelectionDao(Dao[Selection]):
+    """
+       Data Access Object (DAO) for the 'Selection' entity.
+        This class interacts with the 'book_selection' table and manages operations related to
+        book selections for the Goncourt prize, including adding books to a selection,
+        reading books in a selection, reading and updating votes for a selection.
+    """
 
     def read_selection(self, selection_nb: int) -> list[Book]:
+        """
+            Fetch all books for a given selection, along with their associated author, editor,
+            and main characters.
+        :param selection_nb: The selection number (1, 2, 3).
+        :return: list[Book]: A list of books associated with the selection.
+        """
         books: list[Book] = []
 
         with Dao.connection.cursor(pymysql.cursors.DictCursor) as cursor:
@@ -55,6 +67,7 @@ class SelectionDao(Dao[Selection]):
             cursor.execute(sql_characters)
             char_rows = cursor.fetchall()
 
+        # Map characters to books by their book_id
         characters_for_book: dict[int, list[MainCharacter]] = {}
         for row in char_rows:
             characters_for_book.setdefault(row['id_book'], []).append(
@@ -88,6 +101,12 @@ class SelectionDao(Dao[Selection]):
         return books
 
     def add_books_to_selection(self, id_books: list[int], id_selection: int) -> bool:
+        """
+            Add a list of books to a specific selection with initial votes set to zero.
+        :param id_books: A list of book IDs to be added to the selection.
+        :param id_selection: The selection number (1, 2, 3) to which the books should be added.
+        :return: bool: True if the books were successfully added to the selection, False otherwise.
+        """
         try:
             with Dao.connection.cursor() as cursor:
                 sql = "INSERT INTO book_selection (id_book, id_selection, vote) VALUES (%s, %s, 0)"
@@ -100,6 +119,11 @@ class SelectionDao(Dao[Selection]):
             return False
 
     def read_votes_selection(self, selection_nb: int) -> dict[str, int]:
+        """
+            Fetch the vote counts for each book in a given selection.
+        :param selection_nb:  The selection number (1, 2, 3) for which the votes are to be fetched.
+        :return: dict[str, int]: A dictionary where keys are book titles and values are the corresponding vote counts.
+        """
         votes_selection: dict[str, int] = {}
 
         with Dao.connection.cursor(pymysql.cursors.DictCursor) as cursor:
@@ -121,6 +145,12 @@ class SelectionDao(Dao[Selection]):
         return votes_selection
 
     def update_vote_selection(self, id_selection: int, votes: dict[int, int]) -> bool:
+        """
+            Update the votes for books in a specific selection.
+        :param id_selection: The selection number (1, 2, 3) for which the votes should be updated.
+        :param votes: A dictionary where keys are book IDs and values are the new vote counts.
+        :return: bool: True if the votes were successfully updated, False otherwise.
+        """
         with Dao.connection.cursor() as cursor:
             sql = """
                 UPDATE book_selection

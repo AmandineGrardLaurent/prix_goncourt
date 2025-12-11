@@ -41,11 +41,11 @@ CREATE TABLE IF NOT EXISTS `academy_member` (
 --
 
 INSERT INTO `academy_member` (`id_academy_member`, `is_president`, `id_person`) VALUES
-(1, 1, 16),
+(1, 0, 16),
 (2, 0, 17),
 (3, 0, 18),
 (4, 0, 19),
-(5, 0, 20),
+(5, 1, 20),
 (6, 0, 21),
 (7, 0, 22),
 (8, 0, 23),
