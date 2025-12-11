@@ -11,8 +11,15 @@ from goncourt.models.academyMember import AcademyMember
 
 @dataclass
 class AcademyMemberDao(Dao[AcademyMember]):
+    """
+         Data Access Object (DAO) for interacting with academy member data in the database.
+        Handles CRUD operations for academy members, including retrieving, updating, and checking if an academy member is a president.
+    """
     def read(self, id_academy_member: int) -> Optional[AcademyMember]:
-
+        """
+            Retrieve a single academy member by their unique ID.
+        :return: Optional[AcademyMember]: The academy member object if found, otherwise None.
+        """
         academy_member: Optional[AcademyMember]
         with Dao.connection.cursor(pymysql.cursors.DictCursor) as cursor:
             sql = """\
@@ -36,7 +43,10 @@ class AcademyMemberDao(Dao[AcademyMember]):
         return academy_member
 
     def read_all(self) -> list[AcademyMember]:
-
+        """
+            Retrieve all academy members from the database.
+        :return: list[AcademyMember]: A list of all academy member objects, or an empty list if no members exist.
+        """
         academy_members: list[AcademyMember] = []
         with Dao.connection.cursor(pymysql.cursors.DictCursor) as cursor:
             sql = """\
@@ -62,6 +72,11 @@ class AcademyMemberDao(Dao[AcademyMember]):
                 return academy_members
 
     def is_president(self, lastname: str) -> bool:
+        """
+            Check if a person with the given last name is the president of the academy.
+        :param lastname: (str): The last name of the person to check.
+        :return: bool: True if the person is the president, False otherwise.
+        """
         with Dao.connection.cursor(pymysql.cursors.DictCursor) as cursor:
             sql = """\
                     SELECT am.is_president
