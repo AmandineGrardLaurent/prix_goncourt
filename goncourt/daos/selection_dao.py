@@ -99,7 +99,7 @@ class SelectionDao(Dao[Selection]):
             print("Erreur:", e)
             return False
 
-    def read_votes_selection(self, selection_nb: int) -> dict[str, int] :
+    def read_votes_selection(self, selection_nb: int) -> dict[str, int]:
         votes_selection: dict[str, int] = {}
 
         with Dao.connection.cursor(pymysql.cursors.DictCursor) as cursor:
