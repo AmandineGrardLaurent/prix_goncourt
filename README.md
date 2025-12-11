@@ -45,13 +45,14 @@ pip install -r requirements.txt
 
 Assurez-vous d'avoir une base de données MySQL configurée avec les informations suivantes :
 
-Hôte : localhost
+```Hôte : localhost
 
 Utilisateur : prix_goncourt
 
 Mot de passe : ******
 
 Base de données : prix_goncourt
+```
 
 Vous pouvez ajuster ces informations dans la classe Dao si nécessaire.
 
@@ -198,23 +199,23 @@ L'application invite l'utilisateur à entrer l'ID du livre qu'il souhaite consul
 ```
 Quel livre souhaitez-vous consulter ?
 ```
-2. L'utilisateur entre l'ID du livre (par exemple, 12):
+2. L'utilisateur entre l'ID du livre :
 
-L'utilisateur saisit un ID de livre, par exemple, 12.
+L'utilisateur saisit un ID de livre, par exemple, 14.
 
 3. Résultat affiché dans la console :
 
 ```
-Informations du livre "Le Nom du Vent" :
-- Titre : Le Nom du Vent
-- Résumé : Un jeune homme nommé Kvothe raconte son histoire d'apprentissage et ses aventures, à la fois magiques et dangereuses, dans un monde où la musique, la magie et les créatures mythologiques sont omniprésentes.
-- Personnage(s) principal(aux) : Kvothe, Denna
-- Date de publication : 2007-03-27
-- Nombre de pages : 800
-- ISBN : 978-2-7548-0207-3
-- Prix : 19.99 euros
-- Editeur: Le Livre de Poche
-- Auteur: Patrick Rothfuss
+Informations du livre Tressaillir :
+- Titre : Tressaillir 
+- Résumé : Le roman explore les émotions intenses et les relations humaines, abordant les tensions quotidiennes, les conflits personnels et la fragilité des liens entre les personnages. 
+- Personnage(s) principal(aux) : une femme 
+- Date de publication : 2025-08-20 
+- Nombre de pages : 324 
+- ISBN : 9782234097155 
+- Prix : 21.90 euros 
+- Editeur: Stock 
+- Auteur: Maria Pourchet
 ```
 
 
