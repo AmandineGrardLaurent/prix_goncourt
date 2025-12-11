@@ -14,8 +14,16 @@ from goncourt.models.mainCharacter import MainCharacter
 
 @dataclass
 class BookDao(Dao[Book]):
+    """
+        Data Access Object (DAO) for interacting with book data in the database.
+        Handles CRUD operations for books, including retrieving book details from the database.
+    """
 
     def read(self, id_book: int) -> Optional[Book]:
+        """
+            Retrieve a single book from the database by its unique ID.
+        :return: Optional[Book]: A `Book` object if found, otherwise `None`.
+        """
         with Dao.connection.cursor(pymysql.cursors.DictCursor) as cursor:
             sql = """
                 SELECT 
@@ -44,18 +52,22 @@ class BookDao(Dao[Book]):
 
         record = records[0]
 
+        # Create the author object
         author = Author(
             biography=record['biography'],
             first_name=record['first_name'],
             last_name=record['last_name']
         )
 
+        # Create the editor object
         editor = Editor(
             name=record['editor_name']
         )
 
+        # Create the list of main characters
         main_characters = [MainCharacter(row['character_name']) for row in records]
 
+        # Create the Book object and assign its attributes
         book = Book(
             title=record['title'],
             description=record['description'],
