@@ -12,6 +12,25 @@ from goncourt.models.mainCharacter import MainCharacter
 
 @dataclass()
 class Book:
+    """
+            Class representing a Book, containing attributes such as title, description, publication date,
+        pages, ISBN, price, the editor, author, and main characters.
+
+    Attributes:
+        id_book (Optional[int]): The unique identifier for the book.
+        title (str): The title of the book.
+        description (str): A description or summary of the book.
+        publication_date (datetime): The date the book was published.
+        pages_nb (int): The number of pages in the book.
+        ISBN (str): The ISBN code for the book.
+        price (decimal.Decimal): The price of the book.
+        editor (Editor): The editor of the book.
+        author (Author): The author of the book.
+        main_character (list[MainCharacter]): List of the main characters in the book.
+
+    Methods:
+        __str__(): Returns a detailed string representation of the book.
+    """
     id_book: Optional[int] = field(default=None, init=False)
     title: str
     description: str
