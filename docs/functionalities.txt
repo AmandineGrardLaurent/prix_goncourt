@@ -1,0 +1,159 @@
+1. Affichage de la liste des académiciens
+
+Objectif :
+Cette fonctionnalité permet d'afficher la liste complète des membres de l'Académie Goncourt,
+incluant les académiciens et le président étant donné qu'il est lui-même académicien.
+
+Description :
+
+ - Acteur(s) : Président, Académicien.
+ - L'utilisateur choisit cette option.
+ - On a l'affichage d'une liste de tous les académiciens avec leurs informations principales.
+
+Détails d'affichage : prénom, nom, et rôle (président ou membre).
+
+Statut : Président
+
+Scénario :
+
+ - L'utilisateur choisit l'option "Afficher la liste des académiciens".
+ - Le système récupère tous les académiciens à partir de la base de données.
+ - Le système affiche la liste des académiciens avec leurs détails.
+
+2. Affichage de la liste des livres d'une sélection
+
+Objectif :
+Cette fonctionnalité permet d'afficher la liste des livres sélectionnés pour une sélection particulière,
+en fonction du numéro de la sélection (1, 2, 3).
+
+Description :
+
+ - Acteur(s) : Président, Académicien, Utilisateur.
+ - Lorsque l'utilisateur choisit cette option, le système demande le numéro de la sélection (1, 2, 3)
+ et affiche la liste des livres associés à cette sélection.
+
+Détails d'affichage : ID du livre, Titre du livre
+
+Scénario :
+
+ - L'utilisateur choisit l'option "Afficher la liste des livres d'une sélection".
+ - Le système demande le numéro de la sélection.
+ - Le système récupère la liste des livres associés à cette sélection et affiche leurs titres et id.
+
+3. Affichage des votes de la sélection n°3 et du lauréat
+
+Objectif :
+Cette fonctionnalité permet d'afficher les résultats des votes pour la sélection n°3,
+ainsi que le livre gagnant (le lauréat).
+
+Description :
+
+ - Acteur(s) : Président, Académicien, Utilisateur.
+ - Lorsque l'utilisateur choisit cette option, le système récupère les résultats des votes pour la sélection n°3.
+ - On a l'affichage de chaque livre sélectionné et le nombre de votes qu'il a reçus.
+ - On a également l'affichage du livre ayant reçu le plus de votes et l'affiche comme étant le lauréat.
+
+Détails d'affichage :
+
+- Titre du livre
+- Nombre de votes
+- Annonce du lauréat (titre du livre avec le plus grand nombre de votes)
+
+Scénario :
+
+ - L'utilisateur choisit l'option "Afficher les votes de la sélection n°3 et le lauréat".
+ - Le système récupère les résultats des votes pour la sélection n°3.
+ - Le système affiche les résultats des votes pour chaque livre.
+ - Le système identifie et affiche le livre ayant remporté le plus grand nombre de votes.
+
+4. Affichage des détails d'un livre
+
+Objectif :
+Cette fonctionnalité permet d'afficher des informations détaillées sur un livre spécifique.
+
+Description :
+
+ - Acteur(s) : Président, Académicien, Utilisateur.
+ - L'utilisateur peut entrer l'ID d'un livre et obtenir ses détails complets.
+
+Détails d'affichage :
+
+- Titre du livre
+- Résumé du livre
+- Liste des personnages principaux
+- Date de publication
+- Nombre de pages
+- ISBN
+- Prix
+- Nom de l'éditeur
+- Auteur (prénom, nom, biographie)
+
+Scénario :
+
+- L'utilisateur choisit l'option "Afficher les détails d'un livre".
+- Le système demande à l'utilisateur de saisir l'ID du livre qu'il souhaite consulter.
+- Le système récupère les informations détaillées sur le livre à partir de la base de données.
+- Le système affiche les détails du livre sélectionné.
+
+5. Ajout des livres retenus lors d'une sélection
+
+Objectif :
+Cette fonctionnalité permet au président d'ajouter une liste de livres à une sélection donnée.
+
+Description :
+
+- Acteur(s) : Président.
+- Le président choisit la sélection à laquelle il souhaite ajouter des livres.
+- Le président peut saisir une liste d'ID de livres (une liste de 8 livres pour la sélection 2 ou 4 livres pour la sélection 3)
+et le système ajoute ces livres à la sélection spécifiée.
+
+Détails de l'action :
+
+- L'utilisateur saisit une liste d'ID de livres.
+- Les livres sont ajoutés à la sélection en base de données.
+
+Scénario :
+
+- Le président choisit l'option "Ajouter les livres retenus lors d'une sélection".
+- Le président saisit l'ID des livres à ajouter à la sélection.
+- Le système vérifie si la sélection précédente a été faite.
+- Si la sélection précédente est valide, les livres sont ajoutés à la sélection.
+
+6. Ajout des votes de la sélection n°3
+
+Objectif :
+Cette fonctionnalité permet au président d'ajouter les votes pour chaque livre de la sélection n°3.
+
+Description :
+
+- Acteur(s) : Président.
+- Le président peut saisir un nombre de votes pour chaque livre de la sélection n°3.
+
+Détails de l'action :
+
+- L'utilisateur saisit le nombre de votes pour chaque livre.
+- Le système met à jour les votes pour chaque livre en base de données.
+
+Scénario :
+
+- Le président choisit l'option "Ajouter les votes de la sélection n°3".
+- Le système affiche la liste des livres de la sélection n°3.
+- Le président saisit le nombre de votes pour chaque livre.
+- Les votes sont enregistrés en base de données.
+
+7. Terminer la session
+
+Objectif :
+Cette fonctionnalité permet à l'utilisateur de terminer sa session et de quitter l'application.
+
+Description :
+
+- Acteur(s) : Président, Académicien, Utilisateur.
+- Lorsque l'utilisateur choisit cette option, l'application ferme la session en cours et se termine.
+
+Scénario :
+
+- L'utilisateur choisit l'option "Terminer la session".
+- Le système affiche le message "Au revoir".
+- L'application se termine.
+
