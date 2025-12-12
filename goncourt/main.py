@@ -176,10 +176,26 @@ def ask_choice_user() -> str:
 # Utils ----------------------------------------------------------------------------------------------------------------
 
 def verify_is_number(input: str) -> bool:
+    """
+        Verify that the user's input is a valid number.
+    :param input: The value entered by the user
+    :return: True if the input contains only digits, otherwise False.
+    """
     return input.strip().isdigit()
 
 
 def verify_len_list_books(ids_book_list: list[str], selection_nb):
+    """
+        Check whether the number of selected books matches the expected amount
+    for the given selection number.
+
+    Selection rules:
+      - Selection 2 must contain 8 books.
+      - Selection 3 must contain 4 books.
+    :param ids_book_list:  List of book IDs provided by the user.
+    :param selection_nb: The selection number (typically 2 or 3).
+    :return: True if the list length matches the selection rules, otherwise False.
+    """
     return (selection_nb == 2 and len(ids_book_list) == 8) or (selection_nb == 3 and len(ids_book_list) == 4)
 
 
