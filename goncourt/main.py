@@ -108,13 +108,18 @@ def add_books_in_selection(goncourt: Goncourt) -> None:
         ids_book: list[str] = [x.strip() for x in ids_book_str.split(",")]
 
         for id_book in ids_book:
-            if not verify_is_number(id_book):
-                print(f"{id_book} n'est pas un entier.")
-                print("Veuillez ressaisir la sélection")
+            if not verify_is_number(id_book) :
+                print("Veuillez saisir un entier.")
                 return
+
+        if not verify_len_list_books(ids_book, int(current_selection)):
+            print(f"Veuillez ressaisir la sélection -> "
+                  f"{"8 entiers." if int(current_selection) == 2 else "4 entiers."}")
+            return
 
         ids_book_int: list[int] = [int(x.strip()) for x in ids_book]
         goncourt.set_books_selection(ids_book_int, int(current_selection))
+        print("La sélection a été ajoutée.")
 
 
 def add_votes_in_selection(goncourt: Goncourt, selection_nb: int) -> None:
@@ -172,6 +177,10 @@ def ask_choice_user() -> str:
 
 def verify_is_number(input: str) -> bool:
     return input.strip().isdigit()
+
+
+def verify_len_list_books(ids_book_list: list[str], selection_nb):
+    return (selection_nb == 2 and len(ids_book_list) == 8) or (selection_nb == 3 and len(ids_book_list) == 4)
 
 
 # Main -----------------------------------------------------------------------------------------------------------------
