@@ -86,22 +86,35 @@ def add_books_in_selection(goncourt: Goncourt) -> None:
     """
         Add books to a given selection, after ensuring the previous selection exists.
     """
-    current_selection: int = int(input("Quelle selection souhaitez-vous ajouter ?\n"))
-    previous_selection: int = current_selection - 1
+    current_selection: str = input("Quelle selection souhaitez-vous ajouter ?\n")
 
-    display_book_selection(goncourt.get_books_selection(previous_selection), previous_selection)
+    if verify_is_number(current_selection):
+        previous_selection: int = int(current_selection) - 1
+        display_book_selection(goncourt.get_books_selection(previous_selection), previous_selection)
+    else:
+        print("Merci de saisir un chiffre.")
+        return
 
     if len(goncourt.get_books_selection(previous_selection)) == 0:
         print(
             f"La sélection n°{previous_selection} doit avoir eu lieu avant d'ajouter le sélection n°{current_selection}")
+        return
+
     else:
         ids_book_str: str = input(
             f"\nVeuillez saisir les titres retenus pour la sélection n°{current_selection} "
-            f"{"(8 livres)" if current_selection == 2 else "(4 livres)"} :\n")
+            f"{"(8 livres)" if int(current_selection) == 2 else "(4 livres)"} :\n")
 
-        ids_book: list[int] = [int(x.strip()) for x in ids_book_str.split(",")]
+        ids_book: list[str] = [x.strip() for x in ids_book_str.split(",")]
 
-        goncourt.set_books_selection(ids_book, current_selection)
+        for id_book in ids_book:
+            if not verify_is_number(id_book):
+                print(f"{id_book} n'est pas un entier.")
+                print("Veuillez ressaisir la sélection")
+                return
+
+        ids_book_int: list[int] = [int(x.strip()) for x in ids_book]
+        goncourt.set_books_selection(ids_book_int, int(current_selection))
 
 
 def add_votes_in_selection(goncourt: Goncourt, selection_nb: int) -> None:
@@ -154,9 +167,10 @@ def ask_choice_user() -> str:
                         "[4] session terminée\n")
     return choice
 
+
 # Utils ----------------------------------------------------------------------------------------------------------------
 
-def verify_is_number(input: str)-> bool :
+def verify_is_number(input: str) -> bool:
     return input.strip().isdigit()
 
 
