@@ -68,12 +68,16 @@ def display_book_details(goncourt: Goncourt) -> None:
         Display detailed information about a specific book.
     """
     id_book: str = input("\nQuel livre souhaitez-vous consulter ?\n")
-    book: Book = goncourt.get_book_by_id(int(id_book))
 
-    if book:
-        print(book)
+    if verify_is_number(id_book):
+        book: Book = goncourt.get_book_by_id(int(id_book))
+
+        if book:
+            print(book)
+        else:
+            print("Livre inexistant")
     else:
-        print("Livre inexistant")
+        print("Merci de saisir un chiffre.")
 
 
 # Add ------------------------------------------------------------------------------------------------------------------
@@ -150,6 +154,11 @@ def ask_choice_user() -> str:
                         "[4] session terminée\n")
     return choice
 
+# Utils ----------------------------------------------------------------------------------------------------------------
+
+def verify_is_number(input: str)-> bool :
+    return input.strip().isdigit()
+
 
 # Main -----------------------------------------------------------------------------------------------------------------
 
@@ -181,8 +190,12 @@ def main() -> None:
 
                 case '2':
                     # Display books from a chosen selection
-                    selection_choice: int = int(input("\nQuelle selection souhaitez-vous afficher ?\n"))
-                    display_book_selection(goncourt.get_books_selection(selection_choice), selection_choice)
+                    selection_choice: str = input("\nQuelle selection souhaitez-vous afficher ?\n")
+                    if verify_is_number(selection_choice):
+                        selection_choice_int = int(selection_choice)
+                        display_book_selection(goncourt.get_books_selection(selection_choice_int), selection_choice_int)
+                    else:
+                        print("Merci de saisir un chiffre.")
 
                 case '3':
                     # Display selection #3 votes and the winner
@@ -219,8 +232,12 @@ def main() -> None:
             match choice:
                 case '1':
                     # Display books from a selection chosen by the user
-                    selection_choice: int = int(input("\nQuelle selection souhaitez-vous afficher ?\n"))
-                    display_book_selection(goncourt.get_books_selection(selection_choice), selection_choice)
+                    selection_choice: str = input("\nQuelle selection souhaitez-vous afficher ?\n")
+                    if verify_is_number(selection_choice):
+                        selection_choice_int = int(selection_choice)
+                        display_book_selection(goncourt.get_books_selection(selection_choice_int), selection_choice_int)
+                    else:
+                        print("Merci de saisir un chiffre.")
                 case '2':
                     # Display selection #1, then show detailed info for a selected book
                     display_book_selection(goncourt.get_books_selection(1), 1)
